@@ -1,34 +1,21 @@
-import React from 'react'
+import React from 'react';
 import { RiSearchEyeLine } from "react-icons/ri";
 
 const Navbar = () => {
   return (
-    <>
-    
- 
-
-    {/* <div className="h-20 w-full border-b-2 border-black backdrop-blur-xl backdrop-filter z-50 center gap-8  fixed ">
-      <div className=" h-full w-60 center"><img src="https://graphicsfamily.com/wp-content/uploads/edd/2020/12/Free-Logo-Design-Template-for-Online-Store-PNG-transparent.png" alt="" /></div>
-
-      <ul className="h-full text-2xl font-semibold w-full center">
-        <li className='cursor-pointer hover:text-gray-600 duration-500'>Beauty</li>
-        <li className='cursor-pointer hover:text-gray-600 duration-500'>Electronics</li>
-        <li className='cursor-pointer hover:text-gray-600 duration-500'>Clothing</li>
-        <li className='cursor-pointer hover:text-gray-600 duration-500'>Kids</li>
-        <li className='cursor-pointer hover:text-gray-600 duration-500'>Home & Garden</li>
-        <li className='cursor-pointer hover:text-gray-600 duration-500'>Books</li>
-        
-      </ul>
-
-      <div className="w-[300px]  h-full center ">
-      <RiSearchEyeLine className="absolute ml-32 text-3xl"/>
-        <input type="text" className='outline-none py-4 px-8 rounded-full bg-transparent  border text-xl' placeholder='Search' />
+    <div className="h-20 w-full fixed top-0 left-0 border-b-2 border-black z-50 flex items-center justify-evenly px-4 bg-black bg-opacity-30 backdrop-blur-lg backdrop-saturate-150 shadow-lg">
+      <div className=" w-[200px] flex items-center">
+        <img src="https://graphicsfamily.com/wp-content/uploads/edd/2020/12/Free-Logo-Design-Template-for-Online-Store-PNG-transparent.png" alt="Logo" className="h-full w-full" />
       </div>
-    </div> */}
+      <h1 className="text-4xl tracking-wide font-bold text-white text-center">Welcome to Shopy! <br /><span className="text-xl font-semibold  text-gray-700">Discover Our Products</span></h1>
+      
+     
+      <div className="relative w-[300px] h-full flex items-center">
+        <RiSearchEyeLine className="absolute left-3 text-3xl text-black"/>
+        <input type="text" className="w-full py-2 pl-12 pr-4 rounded-full bg-transparent border border-black text-xl outline-none placeholder-black" placeholder="Search..." />
+      </div>
+    </div>
+  );
+};
 
-   
-    </>
-  )
-}
-
-export default Navbar
+export default Navbar;
