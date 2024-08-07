@@ -54,7 +54,7 @@ const Home = () => {
   };
 
   return (
-    <div className="h-screen py-20 flex">
+    <div className="h-screen py-24 flex">
       <div className="w-[400px] h-screen bg-blue-950 p-2">
         <h1 className="text-center text-4xl font-bold text-white">
           Shopping Cart
