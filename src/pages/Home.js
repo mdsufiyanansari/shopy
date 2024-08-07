@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import { FaCartShopping } from "react-icons/fa6";
-import { AiTwotoneThunderbolt } from "react-icons/ai";
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 
 const Home = () => {
@@ -75,24 +75,24 @@ const Home = () => {
         </ul>
       </div>
 
-      <div className="w-full h-full flex flex-wrap justify-center gap-4 p-4">
+      <div className="w-full h-full  md:flex md:flex-wrap justify-center md:gap-4 md:p-4">
         {products.map((product) => (
           <div
             key={product.id}
-            className="w-[80%] h-[350px] border-l p-4 flex"
+            className="md:w-[80%] md:h-[350px]  mt-2 w-[400px] h-[400px] border-l p-4 md:flex"
           >
-            <div className="h-full flex justify-center w-1/2">
+            <div className="h-full  justify-center w-1/2">
               <img
                 src={product.thumbnail}
                 alt={product.title}
-                className="w-[280px] h-[280px] hover:scale-105 cursor-pointer duration-500"
+                className="md:w-[280px] md:h-[280px]  h-[150px] w-[150px] hover:scale-105 cursor-pointer duration-500"
               />
             </div>
 
-            <div className="w-full h-1/2 px-4 py-2">
-              <h2 className="text-2xl font-bold">{product.title}</h2>
-              <p className="text-gray-600 mt-2">{product.description}</p>
-              <p className="font-bold text-2xl mt-2">
+            <div className="w-full h-1/2 m  md:px-4 md:py-2  ">
+              <h2 className="md:text-2xl text-xl font-bold">{product.title}</h2>
+              <p className="text-gray-600 hidden md:block mt-2">{product.description}</p>
+              <p className="font-bold md:text-2xl md:mt-2">
                 <span className="text-yellow-400">$</span> {product.price}
               </p>
               <p className="text-2xl text-red-500 font-semibold">
@@ -103,14 +103,15 @@ const Home = () => {
                 <span className="bg-yellow-400 px-2 rounded-full">
                   {product.rating}
                 </span>
-                <span className="ml-2 flex">{renderStars(product.rating)}</span>
+                <span className="ml-2 md:flex hidden md:block">{renderStars(product.rating)}</span>
               </p>
-              <div className="w-full p-1 mt-2 gap-2">
-                <button className="text-xl text-white bg-blue-950 font-semibold hover:bg-blue-900 duration-500 px-6 py-1 relative">
-                  <AiTwotoneThunderbolt className="absolute left-1 top-2" />
-                  BUY NOW
-                </button>
-                <button className="text-xl text-white bg-blue-950 ml-4 font-semibold hover:bg-blue-900 duration-500 px-6 py-1 relative">
+              <div className="w-full p-1 md:flex mt-2 gap-2">
+              <Link to={`/product/${product.id}`}>
+                  <button className="text-xl text-white bg-blue-950 font-semibold hover:bg-blue-900 duration-500 px-6 py-1 relative">
+                    View Product
+                  </button>
+                </Link>
+                <button className="text-xl hidden md:block text-white bg-blue-950 md:ml-4 font-semibold hover:bg-blue-900 duration-500 px-6 py-1 relative">
                   <FaCartShopping className="absolute left-1 top-2" />
                   ADD TO CART
                 </button>
@@ -118,6 +119,65 @@ const Home = () => {
             </div>
           </div>
         ))}
+         <div className="w-[80%] center  h-[250]  gap-14 flex flex-wrap p-2 ">
+          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
+            <img
+              src="https://www.prodesigns.com/backend/img/sliders/jewelry/1523622008-03.png"
+              alt=""
+            />
+          </div>
+
+          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
+            <img
+              src="https://peppermint.in/cdn/shop/files/Peppermint-Brand_1200x1200.png?v=1627303431"
+              alt=""
+            />
+          </div>
+
+          <div className="w-60 h-32 p-3  animate-pulse shadow-lg   center bg-black">
+            <img
+              src="https://lirp.cdn-website.com/b8acf601/dms3rep/multi/opt/QualityFoodsLogo-01-1920w.png"
+              alt=""
+            />
+          </div>
+
+          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
+            <img
+              src="https://pimwp.s3-accelerate.amazonaws.com/2022/06/Licious-Logo.png"
+              alt=""
+            />
+          </div>
+
+          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-400 center">
+            <img
+              src="https://logos-world.net/wp-content/uploads/2023/08/Garnier-Logo.png"
+              alt=""
+            />
+          </div>
+
+          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
+            <img
+              src="https://logos-world.net/wp-content/uploads/2023/08/LOreal-Logo.png"
+              alt=""
+            />
+          </div>
+
+          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
+            <img
+              src="https://logos-world.net/wp-content/uploads/2022/04/Ashley-Logo.png"
+              alt=""
+            />
+          </div>
+
+          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
+            <img
+              src="https://thrivemyway.com/wp-content/uploads/2022/03/Nike-Logo-Shoe-Brands.png"
+              alt=""
+            />
+          </div>
+
+          
+        </div>
       </div>
     </div>
   );
