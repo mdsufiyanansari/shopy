@@ -13,7 +13,6 @@ const Home = () => {
     axios
       .get("https://dummyjson.com/products")
       .then((response) => {
-        console.log(response.data.products);
         setProducts(response.data.products);
         setLoading(false);
       })
@@ -24,11 +23,11 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return <p className="flex justify-center items-center">Loading...</p>;
+    return <p className="flex justify-center items-center h-screen text-2xl font-semibold text-blue-900">Loading...</p>;
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <p className="text-center text-red-600 text-xl mt-10">Error: {error.message}</p>;
   }
 
   const renderStars = (rating) => {
@@ -38,146 +37,86 @@ const Home = () => {
 
     return (
       <>
-        {Array(fullStars)
-          .fill()
-          .map((_, i) => (
-            <FaStar key={`full-${i}`} className="text-yellow-500" />
-          ))}
+        {Array(fullStars).fill().map((_, i) => (
+          <FaStar key={`full-${i}`} className="text-yellow-500" />
+        ))}
         {halfStar && <FaStarHalfAlt className="text-yellow-500" />}
-        {Array(emptyStars)
-          .fill()
-          .map((_, i) => (
-            <FaRegStar key={`empty-${i}`} className="text-yellow-500" />
-          ))}
+        {Array(emptyStars).fill().map((_, i) => (
+          <FaRegStar key={`empty-${i}`} className="text-yellow-500" />
+        ))}
       </>
     );
   };
 
   return (
-    <div className="h-screen py-24 flex">
-      <div className="w-[400px] h-screen bg-blue-950 p-2">
-        <h1 className="text-center text-4xl font-bold text-white">
-          Shopping Cart
-        </h1>
-        <ul className="h-full text-2xl font-semibold w-full mt-4 leading-[3]">
-          <li className="cursor-pointer mt-2 px-2 hover:text-gray-600 duration-500">Beauty</li>
-          <hr />
-          <li className="cursor-pointer mt-2 px-2 hover:text-gray-600 duration-500">Electronics</li>
-          <hr />
-          <li className="cursor-pointer mt-2 px-2 hover:text-gray-600 duration-500">Clothing</li>
-          <hr />
-          <li className="cursor-pointer mt-2 px-2 hover:text-gray-600 duration-500">Kids</li>
-          <hr />
-          <li className="cursor-pointer mt-2 px-2 hover:text-gray-600 duration-500">Home & Garden</li>
-          <hr />
-          <li className="cursor-pointer mt-2 px-2 hover:text-gray-600 duration-500">Books</li>
-          <hr />
+    <div className="h-screen flex bg-gradient-to-r from-gray-100 to-gray-200">
+      {/* Sidebar */}
+      <div className="w-[280px] mt-20 bg-gradient-to-b from-blue-950 to-blue-900 text-white p-6 rounded-r-3xl shadow-xl sticky top-0 h-[90%]">
+        <h1 className="text-center text-3xl font-bold tracking-wide">Categories</h1>
+        <ul className="mt-10 space-y-5 text-lg font-medium">
+          {["Beauty", "Electronics", "Clothing", "Kids", "Home & Garden", "Books"].map((category, index) => (
+            <li
+              key={index}
+              className="cursor-pointer hover:translate-x-2 hover:text-yellow-300 transition-all duration-300 ease-in-out"
+            >
+              {category}
+            </li>
+          ))}
         </ul>
       </div>
 
-      <div className="w-full h-full  md:flex md:flex-wrap justify-center md:gap-4 md:p-4">
+      {/* Products */}
+      <div className="flex flex-wrap mt-20 justify-center gap-12 px-8 py-8 w-full overflow-y-scroll">
         {products.map((product) => (
           <div
             key={product.id}
-            className="md:w-[80%] md:h-[350px]  mt-2 w-[400px] h-[400px] border-l p-4 md:flex"
+            className="w-full md:w-[600px] h-[370px] bg-white/90 backdrop-blur-lg border border-gray-200 rounded-3xl shadow-2xl overflow-hidden transform transition-all hover:scale-[1.03] duration-300"
           >
-            <div className="h-full  justify-center w-1/2">
-              <img
-                src={product.thumbnail}
-                alt={product.title}
-                className="md:w-[280px] md:h-[280px]  h-[150px] w-[150px] hover:scale-105 cursor-pointer duration-500"
-              />
-            </div>
+            <div className="flex h-full">
+              {/* Image */}
+              <div className="w-[250px] h-full bg-white flex justify-center items-center p-4">
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="w-[150px] h-[150px] object-contain hover:scale-110 transition-transform duration-300"
+                />
+              </div>
 
-            <div className="w-full h-1/2 m  md:px-4 md:py-2  ">
-              <h2 className="md:text-2xl text-xl font-bold">{product.title}</h2>
-              <p className="text-gray-600 hidden md:block mt-2">{product.description}</p>
-              <p className="font-bold md:text-2xl md:mt-2">
-                <span className="text-yellow-400">$</span> {product.price}
-              </p>
-              <p className="text-2xl text-red-500 font-semibold">
-                {product.discountPercentage}%
-              </p>
-              <p className="text-xl font-semibold">
-                rating:{" "}
-                <span className="bg-yellow-400 px-2 rounded-full">
-                  {product.rating}
-                </span>
-                <span className="ml-2 md:flex hidden md:block">{renderStars(product.rating)}</span>
-              </p>
-              <div className="w-full p-1 md:flex mt-2 gap-2">
-              <Link to={`/product/${product.id}`}>
-                  <button className="text-xl text-white bg-blue-950 font-semibold hover:bg-blue-900 duration-500 px-6 py-1 relative">
-                    View Product
+              {/* Content */}
+              <div className="p-5 flex flex-col justify-between w-full">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-800">{product.title}</h2>
+                  <p className="text-sm text-gray-600 mt-1 line-clamp-3">{product.description}</p>
+                </div>
+
+                <div className="flex justify-between items-center mt-4">
+                  <p className="text-xl font-bold text-blue-900">
+                    <span className="text-yellow-500">$</span> {product.price}
+                  </p>
+                  <p className="text-md font-semibold text-red-500">{product.discountPercentage}% OFF</p>
+                </div>
+
+                <div className="flex justify-between items-center mt-2">
+                  <p className="text-md text-gray-700">
+                    Rating: <span className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full">{product.rating}</span>
+                  </p>
+                  <div className="flex items-center gap-1">{renderStars(product.rating)}</div>
+                </div>
+
+                <div className="mt-4 flex justify-between gap-4">
+                  <Link to={`/product/${product.id}`}>
+                    <button className="text-sm md:text-base bg-blue-950 text-white rounded-full px-6 py-2 hover:bg-blue-900 transition duration-300 shadow-md">
+                      View Product
+                    </button>
+                  </Link>
+                  <button className="text-sm md:text-base bg-blue-950 text-white rounded-full px-6 py-2 flex items-center hover:bg-blue-900 transition duration-300 shadow-md">
+                    <FaCartShopping className="mr-2" /> ADD TO CART
                   </button>
-                </Link>
-                <button className="text-xl hidden md:block text-white bg-blue-950 md:ml-4 font-semibold hover:bg-blue-900 duration-500 px-6 py-1 relative">
-                  <FaCartShopping className="absolute left-1 top-2" />
-                  ADD TO CART
-                </button>
+                </div>
               </div>
             </div>
           </div>
         ))}
-         <div className="w-[80%] center  h-[250]  gap-14 flex flex-wrap p-2 ">
-          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
-            <img
-              src="https://www.prodesigns.com/backend/img/sliders/jewelry/1523622008-03.png"
-              alt=""
-            />
-          </div>
-
-          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
-            <img
-              src="https://peppermint.in/cdn/shop/files/Peppermint-Brand_1200x1200.png?v=1627303431"
-              alt=""
-            />
-          </div>
-
-          <div className="w-60 h-32 p-3  animate-pulse shadow-lg   center bg-black">
-            <img
-              src="https://lirp.cdn-website.com/b8acf601/dms3rep/multi/opt/QualityFoodsLogo-01-1920w.png"
-              alt=""
-            />
-          </div>
-
-          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
-            <img
-              src="https://pimwp.s3-accelerate.amazonaws.com/2022/06/Licious-Logo.png"
-              alt=""
-            />
-          </div>
-
-          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-400 center">
-            <img
-              src="https://logos-world.net/wp-content/uploads/2023/08/Garnier-Logo.png"
-              alt=""
-            />
-          </div>
-
-          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
-            <img
-              src="https://logos-world.net/wp-content/uploads/2023/08/LOreal-Logo.png"
-              alt=""
-            />
-          </div>
-
-          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
-            <img
-              src="https://logos-world.net/wp-content/uploads/2022/04/Ashley-Logo.png"
-              alt=""
-            />
-          </div>
-
-          <div className="w-60 h-32 p-3 shadow-lg animate-pulse  bg-slate-50 center">
-            <img
-              src="https://thrivemyway.com/wp-content/uploads/2022/03/Nike-Logo-Shoe-Brands.png"
-              alt=""
-            />
-          </div>
-
-          
-        </div>
       </div>
     </div>
   );
